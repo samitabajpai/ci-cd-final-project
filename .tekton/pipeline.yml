@@ -1,0 +1,22 @@
+
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: mern-pipeline
+spec:
+  tasks:
+    - name: lint
+      taskRef:
+        name: eslint
+
+    - name: test
+      taskRef:
+        name: jest-test
+      runAfter:
+        - lint
+
+    - name: cleanup
+      taskRef:
+        name: cleanup
+      runAfter:
+        - test

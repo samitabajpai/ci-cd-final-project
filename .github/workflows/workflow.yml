@@ -1,0 +1,29 @@
+
+name: MERN CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Install Server Dependencies
+      run: |
+        cd server
+        npm install
+
+    - name: Run Lint
+      run: |
+        cd server
+        npm run lint
+
+    - name: Run Tests
+      run: |
+        cd server
+        npm test
